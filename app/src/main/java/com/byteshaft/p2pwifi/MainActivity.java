@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
     private ContactManager contactManager;
     public static String displayName;
     private boolean STARTED = false;
-    private boolean IN_CALL = false;
+    public static boolean IN_CALL = false;
     private boolean LISTEN = false;
     private boolean firstRun;
     private LinearLayout userLayout;
@@ -242,7 +242,7 @@ public class MainActivity extends Activity {
                                 intent.putExtra(EXTRA_IP, address.substring(1, address.length()));
                                 IN_CALL = true;
 //                                LISTEN = false;
-                                //stopCallListener();
+//                                stopCallListener();
                                 startActivity(intent);
                             }
                             else {
@@ -276,7 +276,7 @@ public class MainActivity extends Activity {
             contactManager.bye(displayName);
             contactManager.stopBroadcasting();
             contactManager.stopListening();
-            //STARTED = false;
+            STARTED = false;
         }
         stopCallListener();
         Log.i(LOG_TAG, "App paused!");
@@ -306,7 +306,6 @@ public class MainActivity extends Activity {
     }
 
     private void notFirstRun() {
-
         STARTED = true;
         userLayout.setVisibility(View.GONE);
         displayName = mSharedPreferences.getString("username", null);
@@ -325,12 +324,10 @@ public class MainActivity extends Activity {
 
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
         scrollView.setVisibility(View.VISIBLE);
-
     }
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
 }
